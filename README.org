@@ -1,11 +1,11 @@
 
-* DESCRIPTION
+* Description
 
 Anamnesis is a clipboard manager. It stores all clipboard history and offers
 an easy interface to do a full-text search on the items of its history.
 
 
-* INSTALLING
+* Installing
 
 The recommended installation have three steps:
   1. copy the command-line to the system path
@@ -25,62 +25,75 @@ There is no automatic tool to do this yet.
       > anamnesis --browse
 
 
-* CONFIGURATION
+* Configuration
 
 Anamnesis will search for configuration files in the $XDG_DATA_DIRS and
 $XDG_CONFIG_HOME directories, which defaults to:
 
+#+BEGIN_example
    /usr/share/anamnesis/anamnesis.cfg
    ~/.config/anamnesis/anamnesis.cfg
+#+END_example
 
 
-* COMMAND LINE
+* Command line
 
-Usage: anamnesis [options]
-
-Options:
-  --version            show program's version number and exit
-  -h, --help           show this help message and exit
-  --start              starts anamnesis daemon
-  --stop               stops anamnesis daemon
-  --restart            restarts anamnesis daemon
-  -b, --browser        opens anamnesis browser with clipboard history
-  --cleanup            optimize database and limit the number of elements
-  -l N, --list=N       prints the clipboard history last N values
-  --filter=KEYWORDS    use keywords to filter the clips to be listed
-  -a CLIP, --add=CLIP  adds a value to the clipboard
-  --remove=ID          removes the clipboard element with the given id
-  --brief              print only a brief version of long clipboard elements
+  : Usage: anamnesis [options]
+  : 
+  : Options:
+  :   --version            show program's version number and exit
+  :   -h, --help           show this help message and exit
+  :   --start              starts anamnesis daemon
+  :   --stop               stops anamnesis daemon
+  :   --restart            restarts anamnesis daemon
+  :   -b, --browser        opens anamnesis browser with clipboard history
+  :   --cleanup            optimize database and limit the number of elements
+  :   -l N, --list=N       prints the clipboard history last N values
+  :   --filter=KEYWORDS    use keywords to filter the clips to be listed
+  :   -a CLIP, --add=CLIP  adds a value to the clipboard
+  :   --remove=ID          removes the clipboard element with the given id
+  :   --brief              print only a brief version of long clipboard elements
 
 Examples:
 
   Starts the graphic user interface:
+#+BEGIN_SRC shell
       anamnesis --browser
+#+END_SRC
 
   Starts the anamnesis daemon:
-      anamnesis --start
+#+BEGIN_SRC shell
+anamnesis --start
+#+END_SRC
 
   Stops the anamnesis daemon:
+#+BEGIN_SRC shell
       anamnesis --stop
+#+END_SRC
 
   List the last 20 clipboard items:
-      anamnesis --list=20
+#+BEGIN_SRC shell
+anamnesis --list=20
+#+END_SRC
 
   List the last 5 items in the clipboard the has the keywords 'my' and 'search':
-      anamnesis --list=5 --filter="my search"
+#+BEGIN_SRC shell
+anamnesis --list=5 --filter="my search"
+#+END_SRC
 
   Adds a clipboard item (same as copying to the clipboard if the daemon is running):
-      anamnesis --add="hello, clipboard!"
+#+BEGIN_SRC shell
+anamnesis --add="hello, clipboard!"
+#+END_SRC
 
 
-* DEPENDENCIES
+* Dependencies
 
-  - python-xdg
-  - python-gtk2
+  - python3
   - sqlite3
 
 
-* CONFIGURATION
+* Configuration
   Anamnesis will search for configuration files in the $XDG_DATA_DIRS and $XDG_CONFIG_HOME directories.
   It defaults to:
 
@@ -88,8 +101,16 @@ Examples:
     ~/.config/anamnesis/anamnesis.cfg
 
 
-* AUTHORs
+* Authors
 
 Written by Fabio Guerra <fabiowguerra@users.sourceforge.net>
+
 Ported to Python 3 by Brian Oney
+
+* TODO Issues
+- Enable text search
+  - [[file:source/browser.py::clips%20=%20clip_database.search(max_clips,%20keywords)]] 
+- Make window pretty again
+  - [[file:source/browser.py::#%20def%20apply_treeview_configuration(treeview):]] 
+- automate installation
 
