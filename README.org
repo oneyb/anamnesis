@@ -1,11 +1,11 @@
 
-DESCRIPTION
+* DESCRIPTION
 
 Anamnesis is a clipboard manager. It stores all clipboard history and offers
 an easy interface to do a full-text search on the items of its history.
 
 
-INSTALLING
+* INSTALLING
 
 The recommended installation have three steps:
   1. copy the command-line to the system path
@@ -25,7 +25,7 @@ There is no automatic tool to do this yet.
       > anamnesis --browse
 
 
-CONFIGURATION
+* CONFIGURATION
 
 Anamnesis will search for configuration files in the $XDG_DATA_DIRS and
 $XDG_CONFIG_HOME directories, which defaults to:
@@ -34,7 +34,7 @@ $XDG_CONFIG_HOME directories, which defaults to:
    ~/.config/anamnesis/anamnesis.cfg
 
 
-COMMAND LINE
+* COMMAND LINE
 
 Usage: anamnesis [options]
 
@@ -73,14 +73,14 @@ Examples:
       anamnesis --add="hello, clipboard!"
 
 
-DEPENDENCIES
+* DEPENDENCIES
 
-* python-xdg
-* python-gtk2
-* sqlite3
+  - python-xdg
+  - python-gtk2
+  - sqlite3
 
 
-CONFIGURATION
+* CONFIGURATION
   Anamnesis will search for configuration files in the $XDG_DATA_DIRS and $XDG_CONFIG_HOME directories.
   It defaults to:
 
@@ -88,9 +88,8 @@ CONFIGURATION
     ~/.config/anamnesis/anamnesis.cfg
 
 
-AUTHOR
+* AUTHORs
 
 Written by Fabio Guerra <fabiowguerra@users.sourceforge.net>
+Ported to Python 3 by Brian Oney
 
-Bugs should be reported on the project page:
-  https://sourceforge.net/projects/anamnesis/
