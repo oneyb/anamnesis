@@ -19,7 +19,7 @@
 
 import os, os.path
 
-from ConfigParser import RawConfigParser
+from configparser import RawConfigParser
 from xdg.BaseDirectory import *
 
 version = "Anamnesis version 1.0.4"

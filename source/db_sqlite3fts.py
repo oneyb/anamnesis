@@ -58,7 +58,7 @@ class ClipboardDatabase(db.IClipboardDatabase):
 		else:
 			self.remove_clip_from_text(text) # slower, need a table full-scan
 
-		self.cursor.execute("INSERT INTO clips VALUES (?)", (unicode(str(text)),))
+		self.cursor.execute("INSERT INTO clips VALUES (?)", (str(text),))
 		self.connection.commit()
 
 	def insert(self, text):
@@ -69,7 +69,7 @@ class ClipboardDatabase(db.IClipboardDatabase):
 
 	def remove_clip_from_text(self, text):
 		if text:
-			self.cursor.execute('DELETE FROM clips WHERE text = ?', (unicode(str(text)),))
+			self.cursor.execute('DELETE FROM clips WHERE text = ?', (str(text),))
 			self.connection.commit()
 
 	def remove(self, id):
@@ -107,7 +107,7 @@ class ClipboardDatabase(db.IClipboardDatabase):
 
 	def search(self, n, keywords=None):
 		if keywords:
-			match = unicode("* ".join(keywords.split(' ')) + "*")
+			match = "* ".join(keywords.split(' ')) + "*"
 			self.cursor.execute('SELECT rowid, text FROM clips WHERE text MATCH (?) ORDER BY rowid DESC LIMIT ?', (match,n))
 		else:
 			self.cursor.execute('SELECT rowid, text FROM clips ORDER BY rowid DESC LIMIT ?', (n,))

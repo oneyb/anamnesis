@@ -18,9 +18,10 @@
 #
 
 import clipboard
-import pygtk
-pygtk.require('2.0')
-import gtk
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk 
+from gi.repository import Gdk 
 import time
 
 class Clipboard(clipboard.AbstractClipboard):
@@ -33,22 +34,22 @@ class Clipboard(clipboard.AbstractClipboard):
 		self.write_timeout = 2
 		
 		if self.can_read_from_selection("clipboard") or self.can_write_to_selection("clipboard"):
-			self.selection["clipboard"] = gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD)
+			self.selection["clipboard"] = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
 			self.selection["clipboard"].request_text(self.callback_clipboard)
 			self.selection["clipboard"].connect("owner-change", self.__owner_change_clipboard)
 
 		if self.can_read_from_selection("primary") or self.can_write_to_selection("primary"):
-			self.selection["primary"] = gtk.clipboard_get(gtk.gdk.SELECTION_PRIMARY)
+			self.selection["primary"] = Gtk.Clipboard.get(Gdk.SELECTION_PRIMARY)
 			self.selection["primary"].request_text(self.callback_primary)
 			self.selection["primary"].connect("owner-change", self.__owner_change_primary)
 
 		self.data = {"primary": None, "clipboard": None}
 
-	def callback_clipboard(self, clipboard, text, data):
+	def callback_clipboard(self, clipboard, text):
 		self.data["clipboard"] = text
 		self.on_data_changed("clipboard", text)
 
-	def callback_primary(self, clipboard, text, data):
+	def callback_primary(self, clipboard, text):
 		self.data["primary"] = text
 		self.on_data_changed("primary", text)
 
@@ -59,15 +60,15 @@ class Clipboard(clipboard.AbstractClipboard):
 
 	def write_to_selection(self, type, text):
 		if text and self.can_write_to_selection(type):
-			self.selection[type].set_text(text)
+			self.selection[type].set_text(text, -1)
 			self.selection[type].store()
 			
 			t0 = time.time()
 			while self.data[type] != text and time.time() - t0 < self.write_timeout:
-				self.__wait_gtk()
+				self.__wait_Gtk()
 
-	def __wait_gtk(self):
-		while gtk.events_pending():
-			gtk.main_iteration()
+	def __wait_Gtk(self):
+		while Gtk.events_pending():
+			Gtk.main_iteration()
 		time.sleep(0.05)
 
