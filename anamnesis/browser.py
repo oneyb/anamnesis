@@ -47,7 +47,7 @@ class Clip:
     def __init__(self, clip):
         self.rowid = clip[0]
         self.text = clip[1]
-    
+
     def get_row_text(self):
         if not self.text:
             return ''
@@ -63,22 +63,22 @@ def hide_window():
     window.hide()
     while gtk.events_pending():
         gtk.main_iteration()
-    
+
 # quit from gtk application
 def quit():
     gtk.main_quit()
 
 # when user chooses the clip, copy to the clipboard and quit
 def row_activated(treeview, path, view_column, data=None):
-    
+
     # make window invisible to the user
     hide_window()
-    
+
     #  insert text in database and write to clipboard
     clip = get_clip(treeview, path)
     clip_database.move_up(clip.rowid, clip.text)
     clipboard.get_instance().write(clip.text)
-    
+
     quit()
 
 # returns a gtk.ListStore with the clipboard history
@@ -119,20 +119,20 @@ def update_treeview():
 def key_pressed(widget, event, data=None):
     global treeview
     global search_entry
-    
+
     if event.keyval == key_escape:
         gtk.main_quit()
-    
+
     elif event.keyval == key_del and treeview.is_focus():
         model, iter = treeview.get_selection().get_selected()
         clip_id = model.get(iter,0)[0].rowid
         clip_database.remove(clip_id)
         update_treeview()
-    
+
     elif event.keyval in [key_up, key_down, key_enter, key_pgup, key_pgdown, key_home, key_end]:
         if not treeview.is_focus():
             treeview.grab_focus()
-    
+
     else:
         if not search_entry.is_focus():
             search_entry.grab_focus()
@@ -206,7 +206,7 @@ def main():
     global treeview
     global search_entry
     global window
-    
+
     cell_renderer = gtk.CellRendererText()
 
     apply_cell_renderer_configuration(cell_renderer)
