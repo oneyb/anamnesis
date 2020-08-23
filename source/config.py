@@ -19,7 +19,7 @@
 
 import os, os.path
 
-from ConfigParser import RawConfigParser
+from configparser import RawConfigParser
 from xdg.BaseDirectory import *
 
 version = "Anamnesis version 1.0.4"
@@ -90,7 +90,7 @@ max_history_storage_count = getint("max_history_storage_count", 10000) # maximum
 
 section = "ui"
 
-tweak_ui = getboolean("tweak_ui", True)
+tweak_ui = getboolean("tweak_ui", False)
 
 list_background = get("list_background", "#000000") # bg color for the list of clipboard items
 list_foreground = get("list_foreground", "#ffffff") # fg color for the list of clipboard items
