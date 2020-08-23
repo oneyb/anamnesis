@@ -17,36 +17,39 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import config
+from anamnesis import config
+import importlib
 
 class IClipboardDatabase:
 
-	def insert(self, data):
-		""" Inserts a data to the top of the database, search and remove any duplicates. """
-		raise NotImplementedError
+    def insert(self, data):
+        """ Inserts a data to the top of the database, search and remove any duplicates. """
+        raise NotImplementedError
 
-	def move_up(self, id, data):
-		""" Calls remove(id) and insert data to the top of the database.
+    def move_up(self, id, data):
+        """ Calls remove(id) and insert data to the top of the database.
             Given data must correspond to the given id. """
-		raise NotImplementedError
+        raise NotImplementedError
 
-	def remove(self, id):
-		""" Remove the clipboard item with the given id"""
-		raise NotImplementedError
+    def remove(self, id):
+        """ Remove the clipboard item with the given id"""
+        raise NotImplementedError
 
-	def search(self, n, keywords=None):
-		""" Returns the n last inserted clipboard items, filter the search with the given list of keywords"""
-		raise NotImplementedError
+    def search(self, n, keywords=None):
+        """ Returns the n last inserted clipboard items, filter the search with the given list of keywords"""
+        raise NotImplementedError
 
-	def cleanup(self):
-		""" Perform a cleanup on the database, and make sure the database size is less than 'config.max_history_storage_count'"""
-		raise NotImplementedError
+    def cleanup(self):
+        """ Perform a cleanup on the database, and make sure the database size is less than 'config.max_history_storage_count'"""
+        raise NotImplementedError
+
 
 db = None
 
-def get_instance():
-	global db
-	if not db:
-		db = __import__("db_" + config.database_implementation).ClipboardDatabase()
-	return db
 
+def get_instance():
+    global db
+    if not db:
+        db = importlib.import_module("anamnesis.db_" + config.database_implementation,
+                                     package='anamnesis').ClipboardDatabase()
+    return db

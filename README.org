@@ -2,38 +2,45 @@
 * Description
 
 Anamnesis is a clipboard manager. It stores all clipboard history and offers
-an easy interface to do a full-text search on the items of its history.
+an easy interface to do a full-text search of the items of its history.
 
 
 * Installing
 
-The recommended installation have three steps:
+** Easily
+ #+BEGIN_SRC shell
+# if you wish: sudo pip3 install git+https://github.com/oneyb/anamnesis 
+pip3 install git+https://github.com/oneyb/anamnesis
+# or
+git clone https://github.com/oneyb/makebarcode
+cd makebarcode && python setup.py install
+#+END_SRC
+ 
+   
+** Manually
+The recommended manual installation has three steps:
   1. copy the command-line to the system path
   2. install the anamnesis daemon in the session start-up
   3. create a keyboard shortcut to the graphic interface
 
-There is no automatic tool to do this yet.
+Specifically:
 
-1. To install anamnesis command line, create a symbolic link named 'anamnesis' in the
-   system path, pointing to anamnesis.py, for example:
-      > sudo ln -s /path/to/anamnesis.py /usr/bin/anamnesis
+1. Create a symbolic link named 'anamnesis'
+     in the system path, pointing to anamnesis.py, for example:
+  #+BEGIN_SRC shell
+  sudo ln -s /path/to/anamnesis.py /usr/bin/anamnesis
+  #+END_SRC
 
 2. Configure the following command to be executed on session start-up (System -> Preferences -> Session Apps):
-      > anamnesis --start
+  #+BEGIN_SRC shell
+  anamnesis --start
+  #+END_SRC
 
 3. Configure a shortcut to the graphic interface (System -> Preferences -> Keyboard Shortcuts):
-      > anamnesis --browse
+  #+BEGIN_SRC shell
+  anamnesis --browse
+  #+END_SRC
 
-
-* Configuration
-
-Anamnesis will search for configuration files in the $XDG_DATA_DIRS and
-$XDG_CONFIG_HOME directories, which defaults to:
-
-#+BEGIN_example
-   /usr/share/anamnesis/anamnesis.cfg
-   ~/.config/anamnesis/anamnesis.cfg
-#+END_example
 
 
 * Command line
@@ -56,7 +63,7 @@ $XDG_CONFIG_HOME directories, which defaults to:
 
 Examples:
 
-  Starts the graphic user interface:
+  Starts the graphical user interface:
 #+BEGIN_SRC shell
       anamnesis --browser
 #+END_SRC
@@ -87,11 +94,17 @@ anamnesis --add="hello, clipboard!"
 #+END_SRC
 
 
-* Dependencies
-
+* Dependencies (for Ubuntu 20.04 LTS)
   - python3
   - sqlite3
+  - python3-gi
+  - gobject-introspection
+  - gir1.2-gtk-3.0
+    
 
+#+BEGIN_SRC shell
+sudo apt install python3 sqlite3 python3-gi gobject-introspection gir1.2-gtk-3.0
+#+END_SRC
 
 * Configuration
   Anamnesis will search for configuration files in the $XDG_DATA_DIRS and $XDG_CONFIG_HOME directories.
@@ -108,9 +121,7 @@ Written by Fabio Guerra <fabiowguerra@users.sourceforge.net>
 Ported to Python 3 by Brian Oney
 
 * TODO Issues
-- Enable text search
-  - [[file:source/browser.py::clips%20=%20clip_database.search(max_clips,%20keywords)]] 
-- Make window pretty again
+- Configure GUI window to be pretty again
   - [[file:source/browser.py::#%20def%20apply_treeview_configuration(treeview):]] 
 - automate installation
 

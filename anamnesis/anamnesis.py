@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 #  Anamnesis clipboard manager.
 #
@@ -18,15 +18,14 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import browser
-import clipboard
-import db
+from anamnesis import browser
+from anamnesis import clipboard
+from anamnesis import db
 import optparse
-import os
 import sys
 
-import config
-import daemon
+from anamnesis import config
+from anamnesis import daemon
 
 help = {
   "start" : "starts anamnesis daemon",
@@ -37,9 +36,9 @@ help = {
   "filter" : "use keywords to filter the clips to be listed",
   "add" : "adds a value to the clipboard",
   "remove" : "removes the clipboard element with the given id",
-  "brief" : "print only a brief version of long clipboard elements",
+  "brief" : "printonly a brief version of long clipboard elements",
   "cleanup" : "optimize database and limit the number of elements",
-  "quiet" : "don't print status messages to stdout"
+  "quiet" : "don't printstatus messages to stdout"
 }
 
 parser = optparse.OptionParser(version = config.version)
@@ -54,53 +53,69 @@ parser.add_option("-a", "--add", action="store", type="string", dest="clip_to_ad
 parser.add_option("--remove", action="store", type="int", dest="id_to_remove", help=help["remove"])
 parser.add_option("--brief", action="store_true", dest="brief", help=help["brief"])
 
-(options, args) = parser.parse_args()
 
-if not options:
-	sys.exit()
+def main():
+    (options, args) = parser.parse_args()
 
-if options.clip_to_add:
-	db.get_instance().insert(options.clip_to_add)
-	clipboard.get_instance().write(options.clip_to_add)
+    if not options:
+        sys.exit()
 
-elif options.id_to_remove:
-	db.get_instance().remove(options.id_to_remove)
+    if options.clip_to_add:
+        db.get_instance().insert(options.clip_to_add)
+        clipboard.get_instance().write(options.clip_to_add)
 
-elif options.start:
-	daemon.AnamnesisDaemon().start()
+    elif options.id_to_remove:
+        db.get_instance().remove(options.id_to_remove)
 
-elif options.stop:
-	daemon.AnamnesisDaemon().stop()
+    elif options.start:
+        daemon.AnamnesisDaemon().start()
 
-elif options.restart:
-	anamnesis_daemon = daemon.AnamnesisDaemon()
-	anamnesis_daemon.stop()
-	anamnesis_daemon.start()
+    elif options.stop:
+        daemon.AnamnesisDaemon().stop()
 
-elif options.browser:
-	browser.main()
+    elif options.restart:
+        anamnesis_daemon = daemon.AnamnesisDaemon()
+        anamnesis_daemon.stop()
+        anamnesis_daemon.start()
 
-elif options.cleanup:
-	print ("Performing database cleanup, this could take some time. Please wait...")
-	db.get_instance().cleanup()
-	print ("done.")
+    elif options.browser:
+        browser.main()
 
-elif options.n:
-	if options.n:
-		n = options.n
-	else:
-		n = 10
-	
-	print (' id | clip')
-	print ('-------------------')
-	for clip in db.get_instance().search(n, options.keywords):
-		
-		if options.brief:
-			clip_text = ' '.join(clip[1][:config.max_rowtext_size].strip().splitlines())
-		else:
-			clip_text = clip[1]
-			
-		print (clip[0], '|', clip_text)
+    elif options.cleanup:
+        print("Performing database cleanup, this could take some time. Please wait...")
+        db.get_instance().cleanup()
+        print("done.")
 
-else:
-	parser.print_help()
+    elif options.n:
+        if options.n:
+            n = options.n
+        else:
+            n = 10
+
+        print(' id | clip')
+        print('-------------------')
+        for clip in db.get_instance().search(n, options.keywords):
+
+            if options.brief:
+                clip_text = ' '.join(clip[1][:config.max_rowtext_size].strip().splitlines())
+            else:
+                clip_text = clip[1]
+
+            print(clip[0], '|', clip_text)
+
+    else:
+        parser.print_help()
+
+
+def start():
+    daemon.AnamnesisDaemon().start()
+
+
+def stop():
+    daemon.AnamnesisDaemon().stop()
+
+
+def restart():
+    anamnesis_daemon = daemon.AnamnesisDaemon()
+    anamnesis_daemon.stop()
+    anamnesis_daemon.start()

@@ -49,9 +49,9 @@ if __name__ == "__main__":
           install_requires=install_requires,
           entry_points = {
               'console_scripts': [
-                  'anamnesis=anamnesis:main',
-                  'anamnesis-browser=browser:main',
-                  'anamnesis-daemon=anamnesis:restart',
+                  'anamnesis=anamnesis.anamnesis:main',
+                  'anamnesis-browser=anamnesis.browser:main',
+                  'anamnesis-daemon=anamnesis.anamnesis:restart',
               ],
           },
           packages=['anamnesis'],

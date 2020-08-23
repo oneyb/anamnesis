@@ -17,19 +17,19 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import clipboard_gtk
+from anamnesis import clipboard_gtk
 import subprocess
 
 class Clipboard(clipboard_gtk.Clipboard):
 
-	def __init__(self):
-		clipboard_gtk.Clipboard.__init__(self)
+    def __init__(self):
+        clipboard_gtk.Clipboard.__init__(self)
 
-	def write_to_selection(self, type, text):
-		try:
-			if text and self.can_write_to_selection(type):
-				process = subprocess.Popen(['xclip', '-selection', type], stdin=subprocess.PIPE)
-				process.communicate(input=text)
-		except:
-			print "Error calling xclip to set the clipboard"
+    def write_to_selection(self, type, text):
+        try:
+            if text and self.can_write_to_selection(type):
+                process = subprocess.Popen(['xclip', '-selection', type], stdin=subprocess.PIPE)
+                process.communicate(input=text)
+        except:
+            print("Error calling xclip to set the clipboard")
 
