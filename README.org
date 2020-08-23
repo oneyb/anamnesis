@@ -12,8 +12,10 @@ an easy interface to do a full-text search of the items of its history.
 # if you wish: sudo pip3 install git+https://github.com/oneyb/anamnesis 
 pip3 install git+https://github.com/oneyb/anamnesis
 # or
-git clone https://github.com/oneyb/makebarcode
-cd makebarcode && python setup.py install
+git clone https://github.com/oneyb/anamnesis
+pip3 install anamnesis/ # sudo ?
+# or
+cd anamnesis && python setup.py install
 #+END_SRC
  
    
@@ -123,5 +125,3 @@ Ported to Python 3 by Brian Oney
 * TODO Issues
 - Configure GUI window to be pretty again
   - [[file:source/browser.py::#%20def%20apply_treeview_configuration(treeview):]] 
-- automate installation
-

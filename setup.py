@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #
 
+import sys 
 DESCRIPTION = 'Simple clipboard manager'
 LONG_DESCRIPTION = """\
     See README, please.
@@ -32,6 +33,8 @@ def check_dependencies():
 
 if __name__ == "__main__":
 
+    if not sys.version_info >= (3,):
+        raise UserWarning('Not compatible with Python 2')
     install_requires = check_dependencies()
     # install_requires = []
 
