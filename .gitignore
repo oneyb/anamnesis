@@ -1,0 +1,5 @@
+anamnesis.egg-info/
+anamnesis/__pycache__/
+build/
+dist/
+.#*
