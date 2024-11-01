@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "anamnesis"
+version = "1.6"
+description = "Simple clipboard manager"
+readme = "README.md"
+requires-python = ">=3.5"
+license = { text = "GPLv3" }
+authors = [
+    { name = "Brian J. Oney", email = "brian.j.oney@gmail.com" }
+]
+dependencies = ["pygobject"]
+keywords = ["clipboard", "manager", "utility"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: GPLv3 License",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Operating System :: MacOS",
+]
+
+[project.urls]
+Homepage = "https://github.com/oneyb/anamnesis"
+Download = "https://github.com/oneyb/anamnesis"
+
+[project.entry-points."console_scripts"]
+anamnesis = "anamnesis.anamnesis:main"
+anamnesis-browser = "anamnesis.browser:main"
+anamnesis-daemon = "anamnesis.anamnesis:restart"
+
+[tool.setuptools.packages.find]
+include = ["anamnesis", "anamnesis.*"]

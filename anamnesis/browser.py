@@ -18,8 +18,12 @@
 #
 
 from gi import pygtkcompat
+import gi
+
 pygtkcompat.enable()
-pygtkcompat.enable_gtk(version='3.0')
+
+gi.require_version("Gtk", "3.0")
+
 import gtk
 import gobject
 import time
