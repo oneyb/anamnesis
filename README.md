@@ -13,9 +13,7 @@ history.
 pipx install git+https://github.com/oneyb/anamnesis
 # or
 git clone https://github.com/oneyb/anamnesis
-pip3 install anamnesis/ # sudo ?
-# or
-cd anamnesis && python setup.py install
+pip3 install anamnesis/ --break-system-packages # or however you do it
 ```
 
 ## Manually
@@ -115,7 +113,7 @@ anamnesis --add="hello, clipboard!"
 
 # Dependencies (for Ubuntu 20.04 LTS)
 
--   python3
+-   python3 (>3.5)
 -   sqlite3
 -   python3-gi
 -   gobject-introspection

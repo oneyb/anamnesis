@@ -17,11 +17,16 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gi import pygtkcompat
-pygtkcompat.enable()
-pygtkcompat.enable_gtk(version='3.0')
 
-import gtk, gobject
+import gi
+gi.require_version('Gtk', '3.0')  # Specify GTK version before other imports
+gi.require_version('Gdk', '3.0')  # Specify GTK version before other imports
+
+from gi.repository import GObject as gobject
+from gi.repository import Gdk as gdk
+from gi.repository import Gtk as gtk
+
+
 import atexit, os, signal, sys
 import logging, logging.handlers
 from anamnesis import clipboard

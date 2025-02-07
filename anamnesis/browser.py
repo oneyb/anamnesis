@@ -17,15 +17,14 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gi import pygtkcompat
 import gi
+gi.require_version('Gtk', '3.0')  # Specify GTK version before other imports
+gi.require_version('Gdk', '3.0')  # Specify GTK version before other imports
 
-pygtkcompat.enable()
+from gi.repository import GObject as gobject
+from gi.repository import Gdk as gdk
+from gi.repository import Gtk as gtk
 
-gi.require_version("Gtk", "3.0")
-
-import gtk
-import gobject
 import time
 
 from anamnesis import clipboard
@@ -36,15 +35,15 @@ from anamnesis import db
 
 clip_database = db.get_instance()
 
-key_escape  = gtk.gdk.keyval_from_name('Escape')
-key_up      = gtk.gdk.keyval_from_name('Up')
-key_down    = gtk.gdk.keyval_from_name('Down')
-key_enter   = gtk.gdk.keyval_from_name('Return')
-key_home    = gtk.gdk.keyval_from_name('Home')
-key_end     = gtk.gdk.keyval_from_name('End')
-key_pgup    = gtk.gdk.keyval_from_name('Page_Up')
-key_pgdown  = gtk.gdk.keyval_from_name('Page_Down')
-key_del     = gtk.gdk.keyval_from_name('Delete')
+key_escape  = gdk.keyval_from_name('Escape')
+key_up      = gdk.keyval_from_name('Up')
+key_down    = gdk.keyval_from_name('Down')
+key_enter   = gdk.keyval_from_name('Return')
+key_home    = gdk.keyval_from_name('Home')
+key_end     = gdk.keyval_from_name('End')
+key_pgup    = gdk.keyval_from_name('Page_Up')
+key_pgdown  = gdk.keyval_from_name('Page_Down')
+key_del     = gdk.keyval_from_name('Delete')
 
 # this class represents a single item in the clipboard history
 class Clip:
@@ -232,19 +231,19 @@ def main():
     apply_treeview_configuration(treeview)
 
     scrolled_window = gtk.ScrolledWindow()
-    scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+    scrolled_window.set_policy(gtk.PolicyType.NEVER, gtk.PolicyType.AUTOMATIC)
     scrolled_window.add(treeview)
 
     search_entry = gtk.Entry()
     search_entry.connect("changed", search_changed)
 
     vbox = gtk.VBox()
-    vbox.pack_start(scrolled_window)
-    vbox.pack_start(search_entry, False, False)
+    vbox.pack_start(scrolled_window, True, True, 0)
+    vbox.pack_start(search_entry, False, False, 0)
 
-    window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+    window = gtk.Window(gtk.WindowType.TOPLEVEL)
     window.add(vbox)
-    window.set_position(gtk.WIN_POS_CENTER)
+    window.set_position(gtk.WindowPosition.CENTER)
 
     window.connect("delete_event", exit_callback)
     window.connect("focus-out-event", exit_callback)
