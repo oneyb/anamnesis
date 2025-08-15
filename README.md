@@ -4,16 +4,25 @@ Anamnesis is a clipboard manager. It stores all clipboard history and
 offers an easy interface to do a full-text search of the items of its
 history.
 
-# Installing
+
+# Usage
+
+I use `xbindkeys` to create a keyboard shortcut.
+
+``` example
+"anamnesis-browser"
+Mod4 + c
+```
+That won't work on wayland, so use your distro's configuration options.
+
+# Installing on Linux
 
 ## Easily
 
 ``` shell
-# if you wish: sudo pip3 install git+https://github.com/oneyb/anamnesis 
-pipx install git+https://github.com/oneyb/anamnesis
-# or
-git clone https://github.com/oneyb/anamnesis
-pip3 install anamnesis/ --break-system-packages # or however you do it
+# First install system dependencies (see Dependencies section below)
+# Then:
+pipx install --system-site-packages git+https://github.com/oneyb/anamnesis
 ```
 
 ## Manually
@@ -111,16 +120,23 @@ running):
 anamnesis --add="hello, clipboard!"
 ```
 
-# Dependencies (for Ubuntu 20.04 LTS)
+# Dependencies
 
 -   python3 (>3.5)
 -   sqlite3
 -   python3-gi
 -   gobject-introspection
--   gir1.2-gtk-3.0
+-   libgirepository-2.0-dev
 
 ``` shell
-sudo apt install python3 sqlite3 python3-gi gobject-introspection gir1.2-gtk-3.0
+# Debian 13 (maybe Ubuntu)
+sudo apt install libgirepository-2.0-dev gobject-introspection
+
+# Fedora/RHEL
+sudo dnf install python3-gobject-devel gobject-introspection-devel gtk3-devel
+
+# Arch
+sudo pacman -S python-gobject gobject-introspection gtk3
 ```
 
 # Configuration

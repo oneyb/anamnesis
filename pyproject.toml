@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "anamnesis"
-version = "1.6"
+version = "1.7"
 description = "Simple clipboard manager"
 readme = "README.md"
 requires-python = ">=3.5"
@@ -25,6 +25,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: GPLv3 License",
     "Operating System :: POSIX",
     "Operating System :: Unix",
@@ -35,7 +36,7 @@ classifiers = [
 Homepage = "https://github.com/oneyb/anamnesis"
 Download = "https://github.com/oneyb/anamnesis"
 
-[project.entry-points."console_scripts"]
+[project.scripts]
 anamnesis = "anamnesis.anamnesis:main"
 anamnesis-browser = "anamnesis.browser:main"
 anamnesis-daemon = "anamnesis.anamnesis:restart"

@@ -17,10 +17,10 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gi import pygtkcompat
-pygtkcompat.enable()
-pygtkcompat.enable_gtk(version='3.0')
-import gtk
+import gi
+gi.require_version('Gtk', '3.0')
+gi.require_version('Gdk', '3.0')
+from gi.repository import Gtk, Gdk
 import time
 from anamnesis import clipboard
 
@@ -34,12 +34,12 @@ class Clipboard(clipboard.AbstractClipboard):
         self.write_timeout = 2
         
         if self.can_read_from_selection("clipboard") or self.can_write_to_selection("clipboard"):
-            self.selection["clipboard"] = gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD)
+            self.selection["clipboard"] = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
             self.selection["clipboard"].request_text(self.callback_clipboard)
             self.selection["clipboard"].connect("owner-change", self.__owner_change_clipboard)
 
         if self.can_read_from_selection("primary") or self.can_write_to_selection("primary"):
-            self.selection["primary"] = gtk.clipboard_get(gtk.gdk.SELECTION_PRIMARY)
+            self.selection["primary"] = Gtk.Clipboard.get(Gdk.SELECTION_PRIMARY)
             self.selection["primary"].request_text(self.callback_primary)
             self.selection["primary"].connect("owner-change", self.__owner_change_primary)
 
@@ -68,7 +68,7 @@ class Clipboard(clipboard.AbstractClipboard):
                 self.__wait_gtk()
 
     def __wait_gtk(self):
-        while gtk.events_pending():
-            gtk.main_iteration()
+        while Gtk.events_pending():
+            Gtk.main_iteration()
         time.sleep(0.05)
 
